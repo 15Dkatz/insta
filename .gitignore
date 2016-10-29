@@ -1,4 +1,5 @@
 node_modules
 babel_node
 .babelrc
-screenshot.png
+*.png
+*.html
