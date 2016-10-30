@@ -1,3 +1,4 @@
+// USING this to speed up casper and not waste time rendering images
 var casper = require('casper').create({
   pageSettings: {
     loadImages: false
@@ -64,7 +65,7 @@ casper.thenOpen(profile_url, function() {
     this.echo(this.getCurrentUrl());
     // this.echo(this.getHTML('ul a'));
     // followers link
-    this.click('ul a');
+    this.click('li:nth-child(2) a');
   })
 })
 
@@ -111,9 +112,9 @@ var loadList = function() {
       for (var i=0; i<n; i++) {
         this.waitForSelector('li', function() {
           console.log('...');
-        })  
+        })
       }
-    })  
+    })
   }
 }
 
@@ -128,7 +129,7 @@ var findUsers = function(HTML) {
   HTML.replace("\'", "");
   // console.log('BIG HTML', HTML);
 
-  // go through the string and add users to the array 
+  // go through the string and add users to the array
   var index = 1; // default to the first capturing group
   // var users = new Set();
   var users = [];
@@ -138,7 +139,7 @@ var findUsers = function(HTML) {
   console.log('\nusers');
 
   while (match = regex.exec(HTML)) {
-    console.log('found a match', match[index]);
+    // console.log('found a match', match[index]);
     // users.add(match[index]);
     if (users.indexOf(match[index]) < 0) {
       users.push(match[index]);
@@ -156,7 +157,7 @@ casper.then(function() {
   // this.echo(this.getHTML('ul'));
   followers = findUsers(this.getHTML('ul'));
   console.log('followers length', followers.length);
-  console.log('\n****followers****\n', followers); 
+  // console.log('\n****followers****\n', followers);
 })
 
 
@@ -211,7 +212,7 @@ casper.then(function() {
 casper.run();
 
 
-
+// see if you can run this with node
 
 // in the frontend
 // give feedback on what is loading as well as percentage bars
